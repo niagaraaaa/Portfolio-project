@@ -184,7 +184,7 @@
                         <div class="container">
                             <ul class="mil-breadcrumbs mil-mb-60">
                                 <li><a href="home-1.html">Homepage</a></li>
-                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="{% url 'blog-page' %}">Blog</a></li>
                             </ul>
                             <h1 class="mil-mb-60">Exploring <span class="mil-thin">the World</span> <br> Through Our <span class="mil-thin">Blog</span></h1>
                             <a href="#blog" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
@@ -288,7 +288,7 @@
                                             <div class="mil-label mil-upper mil-accent">{{blog.category}}</div>
                                             <div class="mil-label mil-upper">{{blog.created_date}}</div>
                                         </div>
-                                        <h3 class="mil-up mil-mb-30">{{blog.title}}</h3>
+                                        <h3 class="mil-up mil-mb-30">{{blog.title}}| {{blog.hit_count.hits}}</h3>
                                         {{blog.content | safe | truncatewords:20 }}
                                         
                                     </div>

@@ -88,7 +88,7 @@
                                     <li class="mil-has-children mil-active">
                                         <a href="#.">Newsletter</a>
                                         <ul>
-                                            <li><a href="blog.html">Blog List</a></li>
+                                            <li><a href="{% url 'blog-page' %}">Blog List</a></li>
                                             <li><a href="publication.html">Publication</a></li>
                                         </ul>
                                     </li>
@@ -202,8 +202,8 @@
                         <div class="container">
                             <ul class="mil-breadcrumbs mil-center mil-mb-60">
                                 <li><a href="home-1.html">Homepage</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="blog.html">Publication</a></li>
+                                <li><a href="{% url 'blog-page' %}">Blog</a></li>
+                                <li><a href="{% url 'blog-page' %}">Publication</a></li>
                             </ul>
                             <h2>{{blog.title}}</h2>
                         </div>

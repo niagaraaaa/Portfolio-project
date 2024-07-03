@@ -3,11 +3,20 @@ from .models import Contact,Blog,Category
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from hitcount.views import HitCountDetailView
 
-def blog_detail_view(request,id):
-    blog = Blog.objects.get(id=id)
-    context = {"blog":blog}
-    return render(request, 'publication.html',context)
+
+class BlogDetailView(HitCountDetailView):
+    model = Blog        # your model goes here
+    count_hit = True    # set to True if you want it to try and count the hit
+    context_object_name = 'blog'
+    template_name = 'publication.html'
+    
+    
+# def blog_detail_view(request,id):
+#     blog = Blog.objects.get(id=id)
+#     context = {"blog":blog}
+#     return render(request, 'publication.html',context)
 
 def blog_view(request):
     blogs = Blog.objects.all()
@@ -15,8 +24,12 @@ def blog_view(request):
     context = {"blogs":blogs,"categories":categories}
     return render(request, 'blog.html',context)
 
-def home_view(request):
-    return render(request,'home.html')
+def home_view(request): 
+    # popular_blogs = Blog.objects.all().order_by('-hit_count__hits')
+    popular_blogs = Blog.objects.all()
+    sorted(popular_blogs,key=lambda x:x.hit_count.hits,reverse=True)
+    context = {"popular_blogs":popular_blogs}
+    return render(request,'home.html',context)
 
 
 def contact_view(request):
