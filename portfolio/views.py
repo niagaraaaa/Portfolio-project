@@ -4,24 +4,38 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from hitcount.views import HitCountDetailView
-
+from django.core.paginator import Paginator
 
 class BlogDetailView(HitCountDetailView):
     model = Blog        # your model goes here
     count_hit = True    # set to True if you want it to try and count the hit
     context_object_name = 'blog'
     template_name = 'publication.html'
+    slug_field = 'slug'
+    
     
     
 # def blog_detail_view(request,id):
 #     blog = Blog.objects.get(id=id)
 #     context = {"blog":blog}
 #     return render(request, 'publication.html',context)
+import math
 
 def blog_view(request):
     blogs = Blog.objects.all()
+    blog_count = len(blogs)
+    count_obj = 5
+    page_count = math.ceil(blog_count/count_obj)
+    paginator = Paginator(blogs,count_obj)
+
+    page = request.GET.get('page',1)
+    
+    page_obj = paginator.get_page(page)
     categories = Category.objects.all()
-    context = {"blogs":blogs,"categories":categories}
+    popular_blogs = blogs
+    sorted(popular_blogs,key=lambda x:x.hit_count.hits,reverse=True)
+
+    context = {"categories":categories,'popular_blogs':popular_blogs[:2],'page_obj':page_obj,'page_count':range(1,1+page_count),'page':int(page)}
     return render(request, 'blog.html',context)
 
 def home_view(request): 
