@@ -19,6 +19,7 @@ class BlogDetailView(HitCountDetailView):
 #     blog = Blog.objects.get(id=id)
 #     context = {"blog":blog}
 #     return render(request, 'publication.html',context)
+
 import math
 
 def blog_view(request):
