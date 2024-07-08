@@ -213,10 +213,9 @@
                         <div class="row">
                             {% for blog in popular_blogs %}
                             <div class="col-lg-6">
-
                                 <a href="{% url 'blog-detail-page' blog.slug %}" class="mil-blog-card mil-mb-60">
                                     <div class="mil-cover-frame mil-up">
-                                        <img src="{{blog.image.url}}" alt="cover">
+                                        <img src="{{ blog.image.url }}" alt="cover">
                                     </div>
                                     <div class="mil-post-descr">
                                         <div class="mil-labels mil-up mil-mb-30">
@@ -225,7 +224,7 @@
                                             <div class="mil-label mil-upper">👁️‍🗨️ {{blog.hit_count.hits}}</div>
                                         </div>
                                         <h4 class="mil-up mil-mb-30">{{blog.title}}</h4>
-                                        <p class="mil-post-text mil-up mil-mb-30">{{blog.content | safe | truncatewords:20 }}</p>                                        <div class="mil-link mil-dark mil-arrow-place mil-up">
+                                        <p class="mil-post-text mil-up mil-mb-30">{{blog.content | truncatewords:20 | safe  }}</p>                                        <div class="mil-link mil-dark mil-arrow-place mil-up">
                                             <span>Read more</span>
                                         </div>
                                     </div>
@@ -271,7 +270,7 @@
                                             <div class="mil-label mil-upper">{{blog.created_date}}</div>
                                             <div class="mil-label mil-upper">👁️‍🗨️ {{blog.hit_count.hits}}</div>
                                         </div>
-                                        class="mil-up mil-mb-30">{{blog.title |truncatewords:4}}
+                                    <h4 class="mil-up mil-mb-30">{{blog.title}}</h4>
                                         {{blog.content | safe | truncatewords:20 }}
                                         
                                     </div>
