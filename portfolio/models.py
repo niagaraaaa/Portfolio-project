@@ -5,6 +5,31 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.text import slugify
 
 
+
+class Team(models.Model):
+    name = models.CharField(max_length=50)
+    deraction = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='Team/images')
+
+    def __str__(self):
+        return f"{self.name} {self.deraction}"
+
+class ProtCategory(models.Model):
+    name = models.CharField(max_length=50)
+    def __str__(self):
+        return f"{self.name}"
+
+class Portfolio(models.Model):
+    size = models.CharField(max_length=50, default="col-lg-6")
+    url = models.URLField()
+    image = models.ImageField(upload_to='Portfolio/images')
+    category = models.ForeignKey(ProtCategory,on_delete=models.CASCADE)
+    date = models.DateField(auto_now=True)
+    title = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.title} {self.category}"
+
 class Contact(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
@@ -12,7 +37,6 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"{self.name} {self.email}"
-
 
 class Category(models.Model):
     name = models.CharField(max_length=50)

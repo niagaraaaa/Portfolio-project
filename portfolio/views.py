@@ -1,10 +1,32 @@
 from django.shortcuts import render
-from .models import Contact,Blog,Category
+from .models import Contact,Blog,Category, Team, Portfolio
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from hitcount.views import HitCountDetailView
 from django.core.paginator import Paginator
+
+def service_view(request): 
+    return render(request,'service.html')
+def workers_view(request): 
+    return render(request,'workers.html')
+
+def portfolio_view(request): 
+    portfolio = Portfolio.objects.all()
+    context = {
+        "portfolios":portfolio,
+    }
+    return render(request,'portfolio.html', context)
+
+def team_view(request): 
+    
+    teams = Team.objects.all()
+    context = {
+        "teams":teams,
+    }
+    return render(request,'team.html', context)
+
+
 
 class BlogDetailView(HitCountDetailView):
     model = Blog        # your model goes here
